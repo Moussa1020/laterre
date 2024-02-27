@@ -41,4 +41,17 @@ const argument = process.argv[2]
 const argument_sqaure = squareRoot(argument)
 
 //Affichage
-console.log(argument_sqaure)
+var arguments = process.argv[2];
+
+var racine = arguments
+var precision = 0.00001;
+
+
+if (isNaN(arguments) || process.argv[3] != undefined) {
+    console.log("Erreur")
+} else {
+    while (Math.abs(arguments - racine*racine) > precision) {
+    racine = (racine + arguments / racine) / 2
+    }
+    console.log(Math.floor(racine))
+}
