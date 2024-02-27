@@ -1,16 +1,49 @@
-var arguments = process.argv[2];
-var argumentsSplit = arguments.split("");
-var hour = argumentsSplit[0] + argumentsSplit[1]
-var minute = argumentsSplit[3] + argumentsSplit[4]
-
-if (process.argv[3] !== undefined || hour > 12) {
-    console.log("Erreur")
-}else if (argumentsSplit[2] != ":") {
-    console.log("La date doit etre au format 00:00")
-}else if (argumentsSplit[0] == 12  ) {
-    var hours = "00"
-    console.log(`${hours}:${argumentsSplit[1]} PM`)
-} else {
-    var hours = parseInt(hour) + 12
-    console.log(`${hours}:${minute}`)
+function convert12_24(argument) {
+    let hour = parseInt(argument[0] + argument[1])
+    let minute = parseInt(argument[3] + argument[4])
+    const time_symbole = (argument[5] + argument[6])
+    if (time_symbole == "am") {
+        return [hour, minute]
+    } else {
+        hour += 12
+    }
+    return [hour, minute]
 }
+
+function checkTime(argument) {
+    argument = argument.toLowerCase()
+    const time_format = /^(0\d|1[0-2])\:[0-5]\d(am|pm)$/
+    if(time_format.test(argument)){
+        return true
+    } else {
+        return false
+    }
+}
+
+function checkArgument(nombreArgument) {
+    const argument = process.argv.slice(2).length
+    if (argument === nombreArgument) {
+        return true
+    } else {
+        return false
+    }
+}
+
+// Gestion d'erreur
+if (!checkArgument(1)) {
+    console.log("Veuillez entrer qu'un seul argument SVP")
+    return
+}
+if (!checkTime(process.argv[2])) {
+    console.log("L'heure doit etre comprise entre 00h et 12h et doit etre du format 00:00mm")
+    return
+}
+
+// parsing
+const argument = process.argv[2]
+
+// Resolution
+const time_convert = convert12_24(argument)
+
+//Affichage
+console.log(`${time_convert[0]}:${time_convert[1]}`)

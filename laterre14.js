@@ -1,31 +1,40 @@
-var arguments = []
-var sort = []
-for (let i = 2; i < process.argv.length; i++) {
-    arguments.push(parseInt(process.argv[i]))
-    sort.push(parseInt(process.argv[i]))
-}
-
-for (let i = 0; i < sort.length; i++) {
-    var imin = i
-        for (let j = i; j < sort.length; j++) {
-            if (sort[j] < sort[imin]) {
-            [sort[imin], sort[j]] = [sort[j], sort[imin]];
-            }
+function checkSort(argguments) {
+    let sort = true
+    for (let i = 0; i < argguments.length; i++) {
+        if (argguments[i+1] < argguments[i]) {
+            sort = false
+            break
         }
+    }
+    return sort
 }
 
-var trier = true;
-for (let i = 0; i < sort.length; i++) {
-    if (arguments[i] != sort[i]) {
-        trier = false;
-        break
+function isString(argument) {
+    if (isNaN(argument)) {
+        return true
+    } else {
+        return false
     }
 }
 
-if (isNaN(process.argv[2])) {
-    console.log("Erreur, veuillez entrer que des chiffres")
-    return
-} else if (trier === true){
+// Gestion d'erreur
+const nombreArgument = process.argv.slice(2)
+for (let i = 0; i < nombreArgument.length; i++) {
+    if (isString(nombreArgument[i])) {
+        console.log("Veuillez entrer que des chiffres SVP!!!")
+        return
+    }
+}
+
+
+// parsing
+const arguments = process.argv.slice(2)
+
+// Resolution
+const arguments_sort = checkSort(arguments)
+
+//Affichage
+if (arguments_sort){
     console.log("Trier")
 } else {
     console.log("Pas Trier")

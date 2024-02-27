@@ -1,14 +1,46 @@
-var alphabets = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-
-function showAlphabet (){
-    var arguments = process.argv[2]
-    var indexFound = alphabets.findIndex((alphabet) => alphabet === arguments);
-    var show = ""
-    for (let i = indexFound; i < alphabets.length; i++) {
-    const alpha = alphabets[i]
-    show = show + alpha
+function checkArgument(nombreArgument) {
+    const argument = process.argv.slice(2).length
+    if (argument === nombreArgument) {
+        return true
+    } else {
+        return false
     }
-    console.log(show)
 }
 
-showAlphabet()
+function isString(argument) {
+    if (isNaN(argument)) {
+        return true
+    } else {
+        return false
+    }
+}
+
+function showAlphabet (start, end){
+    let alphabets = ""
+    for (let i = start; i <= end; i++) {
+    const alphabet = String.fromCharCode(i)
+    alphabets += alphabet
+    }
+    return alphabets
+}
+
+// Gestion d'erreur
+if (!isString(process.argv[2])) {
+    console.log("Veuillez entrer que des lettres SVP")
+    return
+}
+if (!checkArgument(1)) {
+    console.log("Veuillez entrer qu'un seul argument")
+    return
+}
+
+// Parsing
+const argument = process.argv[2]
+const start = argument.charCodeAt(0)
+const end = 122
+
+//resolution
+const alphabets = showAlphabet(start, end)
+
+//Affichage
+console.log(alphabets)

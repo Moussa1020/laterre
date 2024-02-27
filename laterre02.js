@@ -1,5 +1,8 @@
-const arguments = process.argv;
-
-for (let i = 2; i < arguments.length; i++) {
-    console.log(arguments[i]);
+function showArguments() {
+    const arguments = process.argv.slice(2);
+    for (let i = 0; i < arguments.length; i++) {
+        console.log(arguments[i])
+    }
 }
+
+showArguments()
